@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js Todo List</title>
+  <!-- 引入 Vue.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+
+<div id="app">
+  <h1>Vue.js Todo List</h1>
+
+  <!-- 輸入框和按鈕 -->
+  <input v-model="newTodo" @keyup.enter="addTodo" placeholder="Add a new todo">
+  <button @click="addTodo">Add Todo</button>
+
+  <!-- 顯示待辦事項清單 -->
+  <ul>
+    <li v-for="(todo, index) in todos" :key="index">
+      {{ todo.text }}
+      <button @click="removeTodo(index)">Remove</button>
+    </li>
+  </ul>
+</div>
+
+<script>
+// 初始化 Vue 實例
+new Vue({
+  el: '#app',
+  data: {
+    newTodo: '',    // 新的待辦事項
+    todos: []       // 待辦事項清單
+  },
+  methods: {
+    // 新增待辦事項
+    addTodo() {
+      if (this.newTodo.trim() !== '') {
+        this.todos.push({ text: this.newTodo });
+        this.newTodo = ''; // 清空輸入框
+      }
+    },
+    // 刪除待辦事項
+    removeTodo(index) {
+      this.todos.splice(index, 1);
+    }
+  }
+});
+</script>
+
+</body>
+</html>
